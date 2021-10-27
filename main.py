@@ -30,6 +30,9 @@ GPU_indx = 0
 device = torch.device(GPU_indx if torch.cuda.is_available() else 'cpu')
 
 #--------------Camera options--------------------------#
+# gstreamer_pipeline returns a GStreamer pipeline for capturing from the CSI camera
+# Flip the image by setting the flip_method (most common values: 0 and 2)
+# display_width and display_height determine the size of the window on the screen
 def gstreamer_pipeline(
     capture_width=1640,
     capture_height=1232,
