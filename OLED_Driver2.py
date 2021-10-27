@@ -1,4 +1,5 @@
  # -*- coding:UTF-8 -*-
+ # same as Driver 1 except for second dipslay on the second SPI bus of the Jetson Nano. Refer to Driver 1 code for missing documentation. Please contact Waveshare for any additional inquiries
 
 import spidev
 import Jetson.GPIO as GPIO
