@@ -1,4 +1,5 @@
  # -*- coding:UTF-8 -*-
+# Description: OLED driver, slightly modified from Waveshare source code
 
 import spidev
 import Jetson.GPIO as GPIO
@@ -293,6 +294,7 @@ def Display_Image(Image):
     buffer1 = Image.load()
     
     if h is 64:
+	# loop for 64x64 image
         for j in range(0, 64):
             for i in range(0,64):
                 color1 = ((buffer1[-i+1,-j+1][0] & 0xF8)|(buffer1[-i+1,-j+1][1] >> 5))
@@ -303,7 +305,8 @@ def Display_Image(Image):
             Write_Datas(color_fill_byte)
             Write_Datas(color_fill_byte)
 
-    else:            
+    else:       
+	# loop for 128x128 image
         for j in range(0, SSD1351_WIDTH):
             for i in range(0, SSD1351_HEIGHT):
                 color_fill_byte[i*2] = ((buffer1[i,j][0] & 0xF8)|(buffer1[i,j][1] >> 5))
