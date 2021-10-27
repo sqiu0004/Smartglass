@@ -1,5 +1,5 @@
  # -*- coding:UTF-8 -*-
-# Description: OLED driver, slightly modified from Waveshare source code
+# Description: OLED driver, slightly modified from Waveshare source code. For first OLED dipslay on the fist SPI bus of the Jetson Nano. Please contact Waveshare for any additional inquiries
 
 import spidev
 import Jetson.GPIO as GPIO
@@ -77,6 +77,8 @@ SPI.open(0,0)
 SPI.max_speed_hz = 30*1000000
 SPI.mode = 0b00
 
+#--------------Functions from original Waveshare source code----------------
+# mostly unused, save for display and OLED initialisation functions
 def Set_Color(color):
     color_byte[0] = (color >> 8) & 0xff
     color_byte[1] = color & 0xff
