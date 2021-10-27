@@ -1,4 +1,5 @@
-# -*- coding:UTF-8 -*-
+# Created by: Sheng Wen Senman Qiu and Minsoo Kim
+# Description: recaives camera input, infers segmentation model, outputs segmented image onto OLEDS
 
 #--------------Driver Library-----------------#
 import Jetson.GPIO as GPIO
@@ -82,6 +83,7 @@ def Run_Model(cam_img):
     return final
 
 #-------------Display Functions---------------#
+# converts live image to PIL and sends it to one of two OLEDs
 def Display_Live(img,num):
     img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     im_pil = Image.fromarray(img)
@@ -89,11 +91,11 @@ def Display_Live(img,num):
         OLED.Display_Image(im_pil)
     else:
         OLED2.Display_Image(im_pil)
-
+# converts static image to PIL and sends it to OLED 1
 def Display_Static(File_Name):
     image = Image.open(File_Name)
     OLED.Display_Image(image)
-    
+# outputs are calibrated to user POV
 def cutout(img, resolution):
     dim = 130
     bl1 = [90,400]
@@ -121,13 +123,13 @@ def main():
         # Window
         while cv2.getWindowProperty("CSI Camera", 0) >= 0:
             current_time1 = time.time()
-            ret, img = cap.read()
+            ret, img = cap.read() # camera input
             
             if ret:
                 current_time2 = time.time()
-                img = cv2.resize(img, (320,320), interpolation = cv2.INTER_AREA)
-#                img = Run_Model(img)
-                img = cv2.resize(img, (640,480), interpolation = cv2.INTER_AREA)
+                img = cv2.resize(img, (320,320), interpolation = cv2.INTER_AREA) # scales image for the model input
+                img = Run_Model(img)
+                img = cv2.resize(img, (640,480), interpolation = cv2.INTER_AREA) # rescales image for the real world
                 cv2.imshow("CSI Camera", img)
 
                 # -------------Draw Pictures------------#
