@@ -1,4 +1,4 @@
-# Description: tests the live segmentation given a camera input
+# Description: tests the live segmentation given a camera input i.e. no OLED output
 
 import cv2
 import numpy as np
@@ -10,7 +10,6 @@ from torchvision.models.segmentation import segmentation
 
 
 # gstreamer_pipeline returns a GStreamer pipeline for capturing from the CSI camera
-# Defaults to 1280x720 @ 60fps
 # Flip the image by setting the flip_method (most common values: 0 and 2)
 # display_width and display_height determine the size of the window on the screen
 
